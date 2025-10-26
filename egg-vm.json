@@ -1,20 +1,19 @@
 {
-  "_comment": "Auto VM Egg für Pterodactyl",
+  "_comment": "Multi-Linux VM Egg mit GitHub Import",
   "meta": {
     "version": "PTDL_v2",
     "update_url": null
   },
   "exported_at": "2025-10-26T00:00:00+00:00",
-  "name": "Auto VM Multi-Linux",
+  "name": "VM Multi-Linux (VPS)",
   "author": "realtvalexfncloud@gmail.com",
-  "description": "Starte automatisch verschiedene Linux-Distributionen (27 Distros) in Pterodactyl mit QEMU & sshx.io.",
+  "description": "27 Linux-Distros mit QEMU + sshx.io direkt von GitHub.",
   "features": null,
   "docker_images": {
-    "Debian 12": "debian:bookworm",
-    "Ubuntu 24.04": "ubuntu:24.04"
+    "Debian 12": "debian:bookworm-slim"
   },
   "file_denylist": [],
-  "startup": "./install.sh",
+  "startup": "bash install.sh",
   "config": {
     "files": "{}",
     "startup": "{\r\n    \"done\": \"Starte VM\"\r\n}",
@@ -23,7 +22,7 @@
   },
   "scripts": {
     "installation": {
-      "script": "#!/bin/bash\ncd /mnt/server\nbash install.sh",
+      "script": "#!/bin/bash\ncd /mnt/server\ngit clone https://github.com/t26179093-a11y/PTERODACTYL_VPS_EGG.git .\nchmod +x install.sh vm.sh\nbash install.sh",
       "container": "debian:bookworm-slim",
       "entrypoint": "bash"
     }
