@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /mnt/server || exit 1
+cd /home/container || exit 1
 
 echo "🔹 Update und Installation der Abhängigkeiten..."
 apt update -y
