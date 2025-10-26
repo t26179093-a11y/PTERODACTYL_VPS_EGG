@@ -1,0 +1,69 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2025-10-26T00:00:00+00:00",
+    "name": "Virtual Private Server (VPS) - QEMU + sshx.io",
+    "author": "realtvalexfncloud@gmail.com",
+    "description": "Automatische VM für Pterodactyl. Erstellt und startet Ubuntu oder Debian Cloud-Images mit QEMU & sshx.io Web-Terminal – ganz ohne Befehle.",
+    "features": null,
+    "docker_images": {
+        "Debian 12": "debian:bookworm",
+        "Ubuntu 24.04": "ubuntu:24.04"
+    },
+    "file_denylist": [],
+    "startup": "./vm.sh",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \"Starte VM\"\r\n}",
+        "logs": "{}",
+        "stop": "pkill qemu-system-x86_64"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!/bin/bash\r\napt update -y\r\napt install -y qemu-system-x86 qemu-utils cloud-image-utils wget curl\r\nchmod +x /mnt/server/vm.sh\r\necho \"✅ Installation abgeschlossen!\"",
+            "container": "debian:bookworm",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "RAM",
+            "description": "RAM für die VM (MB)",
+            "env_variable": "RAM",
+            "default_value": "2048",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|integer|min:512|max:16384"
+        },
+        {
+            "name": "CPU",
+            "description": "CPU-Kerne für die VM",
+            "env_variable": "CPU",
+            "default_value": "1",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|integer|min:1|max:16"
+        },
+        {
+            "name": "DISK",
+            "description": "Festplattengröße (GB)",
+            "env_variable": "DISK",
+            "default_value": "20",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|integer|min:5|max:200"
+        },
+        {
+            "name": "PASSWD",
+            "description": "Root-Passwort für die VM",
+            "env_variable": "PASSWD",
+            "default_value": "test123",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:50"
+        }
+    ]
+}
