@@ -1,59 +1,62 @@
 {
-  "_comment": "Multi-Linux VM Egg mit GitHub Import",
-  "meta": {
-    "version": "PTDL_v2",
-    "update_url": null
-  },
-  "exported_at": "2025-10-26T00:00:00+00:00",
-  "name": "VM Multi-Linux (VPS)",
-  "author": "realtvalexfncloud@gmail.com",
-  "description": "27 Linux-Distros mit QEMU + sshx.io direkt von GitHub.",
-  "features": null,
-  "docker_images": {
-    "Debian 12": "debian:bookworm-slim"
-  },
-  "file_denylist": [],
-  "startup": "bash install.sh",
-  "config": {
-    "files": "{}",
-    "startup": "{\r\n    \"done\": \"Starte VM\"\r\n}",
-    "logs": "{}",
-    "stop": "pkill qemu-system-x86_64"
-  },
-  "scripts": {
-    "installation": {
-      "script": "#!/bin/bash\ncd /mnt/server\ngit clone https://github.com/t26179093-a11y/PTERODACTYL_VPS_EGG.git .\nchmod +x install.sh vm.sh\nbash install.sh",
-      "container": "debian:bookworm-slim",
-      "entrypoint": "bash"
-    }
-  },
-  "variables": [
-    {
-      "name": "RAM",
-      "description": "RAM für die VM (MB)",
-      "env_variable": "RAM",
-      "default_value": "2048",
-      "user_viewable": true,
-      "user_editable": true,
-      "rules": "required|integer|min:512|max:16384"
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY FOR PTERODACTYL PANEL",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
     },
-    {
-      "name": "CPU",
-      "description": "CPU-Kerne für die VM",
-      "env_variable": "CPU",
-      "default_value": "1",
-      "user_viewable": true,
-      "user_editable": true,
-      "rules": "required|integer|min:1|max:16"
+    "exported_at": "2025-10-26T20:00:00+00:00",
+    "name": "VPS Multi-Linux Egg",
+    "author": "realtvalexfncloud@gmail.com",
+    "description": "Multi-Linux VPS Egg für Pterodactyl Panel. Unterstützt über 20 Distributionen. Siehe GitHub: https://github.com/t26179093-a11y/PTERODACTYL_VPS_EGG",
+    "features": null,
+    "docker_images": {
+        "Docker Hub": "debian:bookworm-slim"
     },
-    {
-      "name": "DISK",
-      "description": "Festplattengröße (GB)",
-      "env_variable": "DISK",
-      "default_value": "20",
-      "user_viewable": true,
-      "user_editable": true,
-      "rules": "required|integer|min:5|max:200"
-    }
-  ]
+    "file_denylist": [],
+    "startup": "./install.sh",
+    "config": {
+        "files": "{}",
+        "startup": "{\"done\": \"🌐 Öffne sshx.io Web-Terminal...\"}",
+        "logs": "{}",
+        "stop": "exit"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!/bin/bash\n\ncd /home/container || exit 1\n\n# GitHub Repo klonen\nif [ ! -d \"PTERODACTYL_VPS_EGG\" ]; then\ngit clone https://github.com/t26179093-a11y/PTERODACTYL_VPS_EGG.git\nfi\ncd PTERODACTYL_VPS_EGG || exit 1\n\nchmod +x install.sh vm.sh\n./install.sh",
+            "container": "debian:bookworm-slim",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "RAM",
+            "description": "RAM für VM in MB",
+            "env_variable": "RAM",
+            "default_value": "2048",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|integer|min:512",
+            "field_type": "text"
+        },
+        {
+            "name": "CPU",
+            "description": "CPU Kerne für VM",
+            "env_variable": "CPU",
+            "default_value": "1",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|integer|min:1",
+            "field_type": "text"
+        },
+        {
+            "name": "Disk",
+            "description": "Festplattengröße in GB",
+            "env_variable": "DISK",
+            "default_value": "20",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|integer|min:10",
+            "field_type": "text"
+        }
+    ]
 }
