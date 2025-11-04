@@ -1,62 +1,31 @@
 {
-    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY FOR PTERODACTYL PANEL",
-    "meta": {
-        "version": "PTDL_v2",
-        "update_url": null
-    },
-    "exported_at": "2025-10-26T20:00:00+00:00",
-    "name": "VPS Multi-Linux Egg",
-    "author": "realtvalexfncloud@gmail.com",
-    "description": "Multi-Linux VPS Egg für Pterodactyl Panel. Unterstützt über 20 Distributionen. Siehe GitHub: https://github.com/t26179093-a11y/PTERODACTYL_VPS_EGG",
-    "features": null,
-    "docker_images": {
-        "Docker Hub": "debian:bookworm-slim"
-    },
-    "file_denylist": [],
-    "startup": "./install.sh",
-    "config": {
-        "files": "{}",
-        "startup": "{\"done\": \"🌐 Öffne sshx.io Web-Terminal...\"}",
-        "logs": "{}",
-        "stop": "exit"
-    },
-    "scripts": {
-        "installation": {
-            "script": "#!/bin/bash\n\ncd /home/container || exit 1\n\n# GitHub Repo klonen\nif [ ! -d \"PTERODACTYL_VPS_EGG\" ]; then\ngit clone https://github.com/t26179093-a11y/PTERODACTYL_VPS_EGG.git\nfi\ncd PTERODACTYL_VPS_EGG || exit 1\n\nchmod +x install.sh vm.sh\n./install.sh",
-            "container": "debian:bookworm-slim",
-            "entrypoint": "bash"
-        }
-    },
-    "variables": [
-        {
-            "name": "RAM",
-            "description": "RAM für VM in MB",
-            "env_variable": "RAM",
-            "default_value": "2048",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": "required|integer|min:512",
-            "field_type": "text"
-        },
-        {
-            "name": "CPU",
-            "description": "CPU Kerne für VM",
-            "env_variable": "CPU",
-            "default_value": "1",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": "required|integer|min:1",
-            "field_type": "text"
-        },
-        {
-            "name": "Disk",
-            "description": "Festplattengröße in GB",
-            "env_variable": "DISK",
-            "default_value": "20",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": "required|integer|min:10",
-            "field_type": "text"
-        }
-    ]
+  "_comment": "Ubuntu Linux VM Egg für Pterodactyl - erstellt von ChatGPT",
+  "meta": {
+    "version": "PTDL_v2",
+    "update_url": null
+  },
+  "exported_at": "2025-11-04T00:00:00+00:00",
+  "name": "Ubuntu VM",
+  "author": "realtvalexfncloud@gmail.com",
+  "description": "Ein Ubuntu Linux Environment, das wie eine kleine VM in Pterodactyl funktioniert. Ideal zum Installieren von Node.js, Python, Nginx usw.",
+  "features": null,
+  "docker_images": {
+    "ghcr.io/parkervcp/yolks:ubuntu": "ghcr.io/parkervcp/yolks:ubuntu"
+  },
+  "file_denylist": [],
+  "startup": "/bin/bash",
+  "config": {
+    "files": "{}",
+    "startup": "{\n    \"done\": \"Server ready\"\n}",
+    "logs": "{}",
+    "stop": "exit"
+  },
+  "scripts": {
+    "installation": {
+      "script": "#!/bin/bash\napt update -y && apt upgrade -y\napt install -y curl wget git nano unzip software-properties-common\napt install -y nodejs npm python3 python3-pip nginx\nclear\necho \"Ubuntu Umgebung wurde erfolgreich installiert!\"\necho \"Du kannst jetzt Befehle in der Konsole ausführen, z.B. apt install <paket> oder node server.js\"",
+      "container": "ubuntu:22.04",
+      "entrypoint": "bash"
+    }
+  },
+  "variables": []
 }
